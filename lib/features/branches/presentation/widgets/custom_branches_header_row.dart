@@ -23,6 +23,14 @@ class CustomBranchesHeaderRow extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Text(
+              "أرقام الهواتف",
+              style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
               "صورة الفرع",
               style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,

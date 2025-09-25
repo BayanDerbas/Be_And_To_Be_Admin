@@ -7,7 +7,7 @@ class ApiConstant {
   static const String refresh = "$baseUrl/auth/refresh";
 
   static const String branch = "$baseUrl/show_branches_admin";
-  static const String request = "$baseUrl/getmaincategories";
+  static const String request = "$baseUrl/show_main_categories_admin";
   static const String getMeals = "$baseUrl/getmealsofcategory";
   static const String getTypesOfMeals = "$baseUrl/gettypesofmeal";
 }

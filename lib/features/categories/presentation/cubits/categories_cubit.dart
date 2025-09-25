@@ -1,33 +1,21 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:image_picker/image_picker.dart';
+import '../../domain/entities/category_entity.dart';
+import '../../domain/usecases/get_categories_usecase.dart';
 
 part 'categories_state.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
-  CategoriesCubit() : super(CategoriesInitial());
+  final GetCategoriesUseCase getCategoriesUseCase;
 
-  final List<Map<String, dynamic>> _categories = [];
+  CategoriesCubit(this.getCategoriesUseCase) : super(CategoriesInitial());
 
-  List<Map<String, dynamic>> get categories => List.unmodifiable(_categories);
-
-  // Future<void> addCategory(String name, int branchId, XFile pickedImage) async {
-  //   emit(CategoriesLoading());
-  //
-  //   final imagePath = pickedImage.path;
-  //
-  //   final result = await addMainCategotryUseCase(name, branchId, pickedImage);
-  //
-  //   result.fold(
-  //         (failure) => emit(CategoriesFailure(failure.message.toString())),
-  //         (entity) {
-  //       _categories.add({
-  //         'name': name,
-  //         'branch_id': branchId,
-  //         'image': imagePath,
-  //       });
-  //       emit(CategoriesSuccess(List.from(_categories)));
-  //     },
-  //   );
-  // }
+  Future<void> fetchCategories(int branchId) async {
+    emit(CategoriesLoading());
+    final result = await getCategoriesUseCase(branchId);
+    result.fold(
+          (failure) => emit(CategoriesFailure(failure.message)),
+          (categories) => emit(CategoriesSuccess(categories)),
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:be_and_to_be_admin/config/animations/loading.dart';
 import 'package:be_and_to_be_admin/core/constants/app_images.dart';
 import 'package:be_and_to_be_admin/core/networks/api_constant.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,12 @@ class BranchesPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: AppColors.smooky,
-              title: const Text(
-                'الفروع',
-                style: TextStyle(color: AppColors.amber),
+              title: Align(
+                alignment: Alignment.centerRight,
+                child: const Text(
+                  'الفروع',
+                  style: TextStyle(color: AppColors.amber),
+                ),
               ),
             ),
             body: Column(
@@ -32,16 +36,16 @@ class BranchesPage extends StatelessWidget {
                   child: BlocBuilder<BranchCubit, BranchState>(
                     builder: (context, state) {
                       if (state is BranchLoading) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(child: LoadinDount());
                       } else if (state is BranchSuccess) {
                         final branches = state.branches.branches;
                         return ListView.builder(
                           itemCount: branches.length,
                           itemBuilder: (context, index) {
                             final branch = branches[index];
-                            print('${ApiConstant.imageBase}/${branch.image}');
                             return CustomBranchesTile(
                               name: branch.branch_name ?? '',
+                              phones: branch.phonenumbers.map((p) => p.phone ?? '').join('\n'),
                               image: '${ApiConstant.imageBase}${branch.image}' ?? '',
                             );
                           },

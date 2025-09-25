@@ -30,11 +30,25 @@ class CustomCategoriesTile extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
-            child: Text(
-              image,
-              style: const TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
+            flex: 4,
+            child: Container(
+              height: 70,
+              alignment: Alignment.center,
+              child: image.isNotEmpty
+                  ? Image.network(
+                image,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.broken_image,
+                    color: Colors.white,
+                  );
+                },
+              )
+                  : const Icon(
+                Icons.image_not_supported,
+                color: Colors.white,
+              ),
             ),
           ),
           Expanded(

@@ -25,6 +25,10 @@ import '../../features/branches/data/repositories/branches_repository_impl.dart'
 import '../../features/branches/domain/repositories/branches_repository.dart';
 import '../../features/branches/domain/usecases/branches_usecase.dart';
 import '../../features/branches/presentation/cubits/get_branches/branch_cubit.dart';
+import '../../features/categories/data/data_sources/categories_service.dart';
+import '../../features/categories/data/repositories/categories_repository_impl.dart';
+import '../../features/categories/domain/repositories/categories_repository.dart';
+import '../../features/categories/domain/usecases/get_categories_usecase.dart';
 import '../../features/categories/presentation/cubits/categories_cubit.dart';
 import '../networks/dio_factory.dart';
 
@@ -43,6 +47,7 @@ Future<void> init() async {
   sl.registerLazySingleton<LogoutService>(() => LogoutService(sl<Dio>()));
   sl.registerLazySingleton<RefreshService>(() => RefreshService(sl<Dio>()));
   sl.registerLazySingleton<BranchesService>(() => BranchesService(sl<Dio>()));
+  sl.registerLazySingleton<CategoriesService>(() => CategoriesService(sl<Dio>()));
 
   // Repositories
   sl.registerLazySingleton<RegisterRepository>(() => RegisterRepositoryImpl(sl<RegisterService>()));
@@ -50,6 +55,7 @@ Future<void> init() async {
   sl.registerLazySingleton<LogoutRepository>(() => LogoutRepositoryImpl(sl<LogoutService>()));
   sl.registerLazySingleton<RefreshRepository>(() => RefreshRepositoryImpl(sl<RefreshService>()));
   sl.registerLazySingleton<BranchesRepository>(() => BranchesRepositoryImpl(sl<BranchesService>()));
+  sl.registerLazySingleton<CategoriesRepository>(() => CategoriesRepositoryImpl(sl<CategoriesService>()));
 
   // UseCases
   sl.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(sl<RegisterRepository>()));
@@ -57,11 +63,12 @@ Future<void> init() async {
   sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(sl<LogoutRepository>()));
   sl.registerLazySingleton<RefreshUseCase>(() => RefreshUseCase(sl<RefreshRepository>()));
   sl.registerLazySingleton<BranchesUseCase>(() => BranchesUseCase(sl<BranchesRepository>()));
+  sl.registerLazySingleton<GetCategoriesUseCase>(() => GetCategoriesUseCase(sl<CategoriesRepository>()));
 
   // Cubits
   sl.registerLazySingleton<LoginCubit>(() => LoginCubit(sl<LoginUseCase>()));
   sl.registerLazySingleton<LogoutCubit>(() => LogoutCubit(sl<LogoutUseCase>()));
   sl.registerLazySingleton<RefreshCubit>(() => RefreshCubit(sl<RefreshUseCase>()));
-  sl.registerLazySingleton<BranchCubit>(() => BranchCubit(sl<BranchesUseCase>()));
-  sl.registerLazySingleton<CategoriesCubit>(() => CategoriesCubit());
+  sl.registerFactory<BranchCubit>(() => BranchCubit(sl<BranchesUseCase>()));
+  sl.registerFactory(() => CategoriesCubit(sl<GetCategoriesUseCase>()));
 }

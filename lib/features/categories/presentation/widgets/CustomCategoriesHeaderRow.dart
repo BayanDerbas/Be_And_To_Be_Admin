@@ -20,7 +20,7 @@ class CustomCategoriesHeaderRow extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Text(
               "الصورة",
               style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
@@ -31,14 +31,6 @@ class CustomCategoriesHeaderRow extends StatelessWidget {
             flex: 2,
             child: Text(
               "الفرع",
-              style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              "إجراءات",
               style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),

@@ -44,12 +44,12 @@ class DashboardPage extends StatelessWidget {
                       const SizedBox(height: 30),
                       CustomMenuItem(
                         icon: Icons.store,
-                        title: "branches",
+                        title: "الفروع",
                         onTap: () => context.go('/branches'),
                       ),
                       CustomMenuItem(
                         icon: Icons.fastfood,
-                        title: "categories",
+                        title: "الأصناف",
                         onTap: () => context.go('/categories'),
                       ),
                       const Spacer(),
@@ -62,7 +62,7 @@ class DashboardPage extends StatelessWidget {
                           },
                           icon: const Icon(Icons.logout, color: AppColors.white),
                           label: const Text(
-                            'Logout',
+                            'تسجيل الخروج',
                             style: TextStyle(color: AppColors.white),
                           ),
                           style: ElevatedButton.styleFrom(

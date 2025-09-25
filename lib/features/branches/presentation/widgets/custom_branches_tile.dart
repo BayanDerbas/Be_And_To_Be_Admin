@@ -4,10 +4,12 @@ import '../../../../core/constants/app_colors.dart';
 class CustomBranchesTile extends StatelessWidget {
   final String name;
   final String image;
+  final String phones;
 
   const CustomBranchesTile({
     super.key,
     required this.name,
+    required this.phones,
     required this.image,
   });
 
@@ -23,6 +25,14 @@ class CustomBranchesTile extends StatelessWidget {
             flex: 4,
             child: Text(
               name,
+              style: const TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              phones.toString(),
               style: const TextStyle(color: Colors.white),
               textAlign: TextAlign.center,
             ),

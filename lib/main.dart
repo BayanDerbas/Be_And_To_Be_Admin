@@ -15,19 +15,11 @@ import 'features/notifications/data/services/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // ✅ 1) تهيئة Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // ✅ 2) تهيئة الـ dependency injection
   await di.init();
-
-  // ✅ 3) تهيئة إشعارات FCM (بعد Firebase)
   await NotificationService().initNotifications();
-
-  // ✅ 4) تشغيل التطبيق
   runApp(const MyApp());
 }
 
@@ -42,9 +34,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<RefreshCubit>(create: (_) => di.sl<RefreshCubit>()),
         BlocProvider<LogoutCubit>(create: (_) => di.sl<LogoutCubit>()),
         BlocProvider<LoginCubit>(create: (_) => di.sl<LoginCubit>()),
-        BlocProvider<BranchCubit>(
-          create: (_) => di.sl<BranchCubit>()..fetchBranches(),
-        ),
+        BlocProvider<BranchCubit>(create: (_) => di.sl<BranchCubit>()..fetchBranches(),),
       ],
       child: Builder(
         builder: (context) {
