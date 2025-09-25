@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:be_and_to_be_admin/features/notifications/data/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -139,10 +140,13 @@ class Login_SignupPage extends StatelessWidget {
                         child: CustomButton(
                           text: "تسجيل الدخول",
                           onPressed: () {
+                            final device_token = NotificationService.fcm_Token ?? " ";
                             context.read<LoginCubit>().login(
                               phonenumber: phoneController.text,
                               password: passwordController.text,
+                              device_token: device_token,
                             );
+                            print("Device_token : $device_token\n\n");
                           },
                           buttonColor: AppColors.amber,
                           textColor: AppColors.black1,
@@ -179,19 +183,19 @@ class CustomDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      dropdownColor: AppColors.smooky2, // خلفية القائمة
+      dropdownColor: AppColors.smooky2,
       value: value,
       icon: Icon(Icons.arrow_drop_down, color: AppColors.amber),
       decoration: InputDecoration(
         filled: true,
-        fillColor: AppColors.smooky2, // خلفية الحقل الأساسي
+        fillColor: AppColors.smooky2,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
       ),
       style: TextStyle(
-        color: AppColors.grey1, // لون النصوص
+        color: AppColors.grey1,
         fontSize: 16,
         fontWeight: FontWeight.w500,
       ),

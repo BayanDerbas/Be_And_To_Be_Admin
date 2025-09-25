@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_service.dart';
+part of 'meal_types_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'login_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _LoginService implements LoginService {
-  _LoginService(this._dio, {this.baseUrl, this.errorLogger}) {
+class _MealTypesService implements MealTypesService {
+  _MealTypesService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'http://127.0.0.1:8000/api';
   }
 
@@ -20,38 +20,25 @@ class _LoginService implements LoginService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<LoginUserModel> login({
-    required String password,
-    required String phonenumber,
-    required String device_token,
-  }) async {
+  Future<HttpResponse<dynamic>> getTypesOfMeal(int meal_id) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'password': password,
-      r'phonenumber': phonenumber,
-      r'device_token': device_token,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<LoginUserModel>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+    final _options = _setStreamType<HttpResponse<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'http://127.0.0.1:8000/api/auth/login',
+            'http://127.0.0.1:8000/api/show_types_admin/${meal_id}',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late LoginUserModel _value;
-    try {
-      _value = LoginUserModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

@@ -52,6 +52,11 @@ class DashboardPage extends StatelessWidget {
                         title: "الأصناف",
                         onTap: () => context.go('/categories'),
                       ),
+                      CustomMenuItem(
+                        icon: Icons.fastfood,
+                        title: "الوجبات",
+                        onTap: () => context.go('/meals'),
+                      ),
                       const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
