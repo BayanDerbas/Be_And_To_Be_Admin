@@ -8,4 +8,5 @@ class ApiConstant {
   static const String request = "$baseUrl/show_main_categories_admin";
   static const String getMeals = "$baseUrl/show_meals_admin";
   static const String getTypesOfMeals = "$baseUrl/show_types_admin";
+  static const String make_meal_unavailable = "$baseUrl/make_meal_unavailable";
 }

@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoginCubit>(create: (_) => di.sl<LoginCubit>()),
         BlocProvider<BranchCubit>(create: (_) => di.sl<BranchCubit>()..fetchBranches(),),
         BlocProvider<MealTypesCubit>(create: (_) => di.sl<MealTypesCubit>()),
+
       ],
       child: Builder(
         builder: (context) {

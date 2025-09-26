@@ -27,3 +27,19 @@ class MealTypesFailure extends MealTypesState {
   @override
   List<Object?> get props => [message];
 }
+
+class MakeMealUnavailableSuccess extends MealTypesState {
+  final String message;
+
+  MakeMealUnavailableSuccess(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+class MakeMealUnavailableFailure extends MealTypesState {
+  final String message;
+
+  MakeMealUnavailableFailure(this.message);
+  @override
+  List<Object?> get props => [message];
+}

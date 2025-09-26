@@ -1,7 +1,11 @@
+import 'package:be_and_to_be_admin/features/meals/data/data_sources/edit_meal_status_service.dart';
+import 'package:be_and_to_be_admin/features/meals/data/repositories/meal_status_repository_impl.dart';
 import 'package:be_and_to_be_admin/features/meals/data/repositories/meal_types_repository_impl.dart';
 import 'package:be_and_to_be_admin/features/meals/domain/repositories/get_types_of_meal_repository.dart';
+import 'package:be_and_to_be_admin/features/meals/domain/repositories/meal_status_repository.dart';
 import 'package:be_and_to_be_admin/features/meals/domain/usecases/get_meals_of_category_usecase.dart';
 import 'package:be_and_to_be_admin/features/meals/domain/usecases/get_types_of_meal_usecase.dart';
+import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_unavailable_usecase.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +59,7 @@ Future<void> init() async {
   sl.registerLazySingleton<CategoriesService>(() => CategoriesService(sl<Dio>()));
   sl.registerLazySingleton<MealService>(() => MealService(sl<Dio>()));
   sl.registerLazySingleton<MealTypesService>(() => MealTypesService(sl<Dio>()));
+  sl.registerLazySingleton<EditMealStatusService>(() => EditMealStatusService(sl<Dio>()));
 
   // Repositories
   sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(sl<LoginService>()));
@@ -64,6 +69,8 @@ Future<void> init() async {
   sl.registerLazySingleton<CategoriesRepository>(() => CategoriesRepositoryImpl(sl<CategoriesService>()));
   sl.registerLazySingleton<MealRepository>(() => MealRepositoryImpl(sl<MealService>()));
   sl.registerLazySingleton<MealTypesRepository>(() => MealTypesRepositoryImpl(sl<MealTypesService>()));
+  sl.registerLazySingleton<MealStatusRepository>(() => MealStatusRepositoryImpl(sl<EditMealStatusService>()));
+
 
   // UseCases
   sl.registerLazySingleton<LoginUseCase>(() => LoginUseCase(sl<LoginRepository>()));
@@ -73,6 +80,8 @@ Future<void> init() async {
   sl.registerLazySingleton<GetCategoriesUseCase>(() => GetCategoriesUseCase(sl<CategoriesRepository>()));
   sl.registerLazySingleton<GetMealOfCategoryUseCase>(() => GetMealOfCategoryUseCase(sl<MealRepository>()));
   sl.registerLazySingleton<GetTypesOfMealUseCase>(() => GetTypesOfMealUseCase(sl<MealTypesRepository>()));
+  sl.registerLazySingleton<MakeMealStatusUseCase>(() => MakeMealStatusUseCase(sl<MealStatusRepository>()));
+
 
   // Cubits
   sl.registerLazySingleton<LoginCubit>(() => LoginCubit(sl<LoginUseCase>()));
@@ -81,5 +90,5 @@ Future<void> init() async {
   sl.registerFactory<BranchCubit>(() => BranchCubit(sl<BranchesUseCase>()));
   sl.registerFactory(() => CategoriesCubit(sl<GetCategoriesUseCase>()));
   sl.registerFactory(() => MealsCubit(sl<GetMealOfCategoryUseCase>()));
-  sl.registerLazySingleton<MealTypesCubit>(() => MealTypesCubit(sl<GetTypesOfMealUseCase>()));
+  sl.registerLazySingleton<MealTypesCubit>(() => MealTypesCubit(sl<GetTypesOfMealUseCase>(),sl<MakeMealStatusUseCase>()));
 }
