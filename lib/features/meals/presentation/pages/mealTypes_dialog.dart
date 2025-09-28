@@ -20,8 +20,11 @@ class MealTypesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: AppColors.smooky2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: AppColors.smooky,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+        side: const BorderSide(color: AppColors.white, width: 1.5),
+      ),
       title: Column(
         children: [
           CircleAvatar(
@@ -36,7 +39,7 @@ class MealTypesDialog extends StatelessWidget {
             mealName,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: AppColors.amber,
+              color: AppColors.white,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -106,14 +109,15 @@ class MealTypesDialog extends StatelessWidget {
                                   (_) => Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: AlertDialog(
+                                      backgroundColor: AppColors.smooky,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
+                                        borderRadius: BorderRadius.circular(15),
+                                        side: const BorderSide(color: AppColors.amber, width: 1.5),
                                       ),
-                                      backgroundColor: AppColors.smooky2,
                                       title: Text(
                                         "تعديل حالة ${type.name}",
                                         style: const TextStyle(
-                                          color: AppColors.amber,
+                                          color: AppColors.white,
                                         ),
                                       ),
                                       content: const Text(
@@ -214,7 +218,7 @@ class MealTypesDialog extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
           style: TextButton.styleFrom(foregroundColor: AppColors.amber),
           child: const Text(
             "إغلاق",

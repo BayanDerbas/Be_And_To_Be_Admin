@@ -8,7 +8,10 @@ class CustomBranchesHeaderRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.smooky,
+      decoration: BoxDecoration(
+        color: AppColors.smooky2,
+        borderRadius: BorderRadius.circular(8),
+      ),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: Row(
         children: const [
@@ -16,7 +19,7 @@ class CustomBranchesHeaderRow extends StatelessWidget {
             flex: 4,
             child: Text(
               "اسم الفرع",
-              style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -24,7 +27,7 @@ class CustomBranchesHeaderRow extends StatelessWidget {
             flex: 4,
             child: Text(
               "أرقام الهواتف",
-              style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -32,7 +35,7 @@ class CustomBranchesHeaderRow extends StatelessWidget {
             flex: 4,
             child: Text(
               "صورة الفرع",
-              style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),

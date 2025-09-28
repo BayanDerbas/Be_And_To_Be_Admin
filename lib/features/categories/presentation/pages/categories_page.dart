@@ -35,7 +35,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             child: const Text(
               'الأصناف',
               style: TextStyle(
-                color: AppColors.amber,
+                color: AppColors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -65,7 +65,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           value: selectedBranch,
                           hint: Text(
                             "اختر الفرع",
-                            style: TextStyle(color: AppColors.amber),
+                            style: TextStyle(color: AppColors.white),
                             textAlign: TextAlign.right,
                           ),
                           isExpanded: true,
@@ -79,7 +79,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 alignment: Alignment.centerRight,
                                 child: Text(
                                   branch.branch_name ?? "Unnamed",
-                                  style: const TextStyle(color: AppColors.amber),
+                                  style: const TextStyle(color: AppColors.white),
                                   textAlign: TextAlign.right,
                                 ),
                               ),

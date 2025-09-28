@@ -17,7 +17,6 @@ class MealStatusRepositoryImpl implements MealStatusRepository {
     try {
       final response = await service.makeMealUnavailable(mealType_id);
       final data = response.data;
-
       late MealStatusEntity entity;
 
       if (data is Map<String, dynamic>) {

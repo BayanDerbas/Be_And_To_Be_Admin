@@ -9,4 +9,6 @@ class ApiConstant {
   static const String getMeals = "$baseUrl/show_meals_admin";
   static const String getTypesOfMeals = "$baseUrl/show_types_admin";
   static const String make_meal_unavailable = "$baseUrl/make_meal_unavailable";
+  static const String show_coupons = "$baseUrl/show_coupons";
+  static const String add_coupon = "$baseUrl/add_coupon";
 }

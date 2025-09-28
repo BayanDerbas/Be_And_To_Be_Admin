@@ -16,8 +16,18 @@ class CustomBranchesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.smooky2,
-      margin: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 1),
+      decoration: BoxDecoration(
+        color: AppColors.smooky2,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black1.withOpacity(0.3),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 11),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       child: Row(
         children: [
@@ -37,28 +47,38 @@ class CustomBranchesTile extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              height: 70,
-              width: 70,
+      Expanded(
+        flex: 4,
+        child: Center(
+          child: Container(
+            height: 70,
+            width: 70,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              // color: Colors.grey,
+            ),
+            child: ClipOval(
               child: image.isNotEmpty
                   ? Image.network(
                 image,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(
                     Icons.broken_image,
                     color: Colors.white,
+                    size: 40,
                   );
                 },
               )
                   : const Icon(
                 Icons.image_not_supported,
                 color: Colors.white,
+                size: 40,
               ),
             ),
           ),
+        ),
+      ),
         ],
       ),
     );

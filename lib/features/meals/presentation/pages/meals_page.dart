@@ -30,7 +30,7 @@ class _MealsPageState extends State<MealsPage> {
       providers: [
         BlocProvider(
           create: (_) => di.sl<BranchCubit>()..fetchBranches(),
-        ), // 🔹 أول شيء يجيب الفروع
+        ),
         BlocProvider(create: (_) => di.sl<CategoriesCubit>()),
         BlocProvider(create: (_) => di.sl<MealsCubit>()),
       ],
@@ -42,7 +42,7 @@ class _MealsPageState extends State<MealsPage> {
             child: Text(
               'الوجبات',
               style: TextStyle(
-                color: AppColors.amber,
+                color: AppColors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -50,7 +50,6 @@ class _MealsPageState extends State<MealsPage> {
         ),
         body: Column(
           children: [
-            // 🔹 Dropdown الفروع
             BlocBuilder<BranchCubit, BranchState>(
               builder: (context, branchState) {
                 if (branchState is BranchLoading) {
@@ -75,7 +74,7 @@ class _MealsPageState extends State<MealsPage> {
                           value: selectedBranch,
                           hint: const Text(
                             "اختر الفرع",
-                            style: TextStyle(color: AppColors.amber),
+                            style: TextStyle(color: AppColors.white),
                           ),
                           isExpanded: true,
                           dropdownColor: AppColors.smooky2,
@@ -90,7 +89,7 @@ class _MealsPageState extends State<MealsPage> {
                                     child: Text(
                                       branch.branch_name ?? "Unnamed",
                                       style: const TextStyle(
-                                        color: AppColors.amber,
+                                        color: AppColors.white,
                                       ),
                                     ),
                                   ),
@@ -99,7 +98,7 @@ class _MealsPageState extends State<MealsPage> {
                           onChanged: (branch) {
                             setState(() {
                               selectedBranch = branch;
-                              selectedCategory = null; // reset التصنيف
+                              selectedCategory = null;
                             });
                             if (branch != null) {
                               context.read<CategoriesCubit>().fetchCategories(
@@ -140,7 +139,7 @@ class _MealsPageState extends State<MealsPage> {
                             value: selectedCategory,
                             hint: const Text(
                               "اختر التصنيف",
-                              style: TextStyle(color: AppColors.amber),
+                              style: TextStyle(color: AppColors.white),
                             ),
                             isExpanded: true,
                             dropdownColor: AppColors.smooky2,
@@ -155,7 +154,7 @@ class _MealsPageState extends State<MealsPage> {
                                       child: Text(
                                         category.name,
                                         style: const TextStyle(
-                                          color: AppColors.amber,
+                                          color: AppColors.white,
                                         ),
                                       ),
                                     ),
@@ -198,7 +197,6 @@ class _MealsPageState extends State<MealsPage> {
                             final mealTypesCubit =
                                 context.read<MealTypesCubit>();
                             mealTypesCubit.getMealsTypes(meal.id);
-
                             showDialog(
                               context: context,
                               builder: (_) {

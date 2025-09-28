@@ -25,7 +25,7 @@ class BranchesPage extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: const Text(
                   'الفروع',
-                  style: TextStyle(color: AppColors.amber),
+                  style: TextStyle(color: AppColors.white),
                 ),
               ),
             ),

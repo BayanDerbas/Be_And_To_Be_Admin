@@ -1,3 +1,5 @@
+import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/addCoupon/add_coupon_cubit.dart';
+import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/get_coupons/get_coupons_cubit.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +39,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoginCubit>(create: (_) => di.sl<LoginCubit>()),
         BlocProvider<BranchCubit>(create: (_) => di.sl<BranchCubit>()..fetchBranches(),),
         BlocProvider<MealTypesCubit>(create: (_) => di.sl<MealTypesCubit>()),
-
+        BlocProvider<GetCouponsCubit>(create: (_) => di.sl<GetCouponsCubit>()),
+        BlocProvider<AddCouponCubit>(create: (_) => di.sl<AddCouponCubit>()),
       ],
       child: Builder(
         builder: (context) {

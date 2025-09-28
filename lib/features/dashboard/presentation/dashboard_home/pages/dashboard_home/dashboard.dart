@@ -35,7 +35,7 @@ class DashboardPage extends StatelessWidget {
                         child: Text(
                           "لوحة التحكم",
                           style: TextStyle(
-                            color: AppColors.amber,
+                            color: AppColors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -53,9 +53,14 @@ class DashboardPage extends StatelessWidget {
                         onTap: () => context.go('/categories'),
                       ),
                       CustomMenuItem(
-                        icon: Icons.fastfood,
+                        icon: Icons.restaurant,
                         title: "الوجبات",
                         onTap: () => context.go('/meals'),
+                      ),
+                      CustomMenuItem(
+                        icon: Icons.sell,
+                        title: "الكوبونات",
+                        onTap: () => context.go('/coupons'),
                       ),
                       const Spacer(),
                       Padding(

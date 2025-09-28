@@ -1,4 +1,5 @@
 import 'package:be_and_to_be_admin/features/branches/presentation/pages/branches_page.dart';
+import 'package:be_and_to_be_admin/features/coupons/presentation/pages/coupons_page.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/pages/meals_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -35,6 +36,10 @@ class AppRouter {
           GoRoute(
             path: '/meals',
             builder: (context,state) => MealsPage(),
+          ),
+          GoRoute(
+            path: '/coupons',
+            builder: (context,state) => CouponsPage(),
           ),
         ],
       ),
