@@ -9,6 +9,11 @@ class ApiConstant {
   static const String getMeals = "$baseUrl/show_meals_admin";
   static const String getTypesOfMeals = "$baseUrl/show_types_admin";
   static const String make_meal_unavailable = "$baseUrl/make_meal_unavailable";
+  static const String make_meal_available = "$baseUrl/make_meal_available";
   static const String show_coupons = "$baseUrl/show_coupons";
   static const String add_coupon = "$baseUrl/add_coupon";
+  static const String edit_minOrder = "$baseUrl/edit_min_order";
+  static const String edit_percentValue = "$baseUrl/edit_value";
+  static const String edit_expires_date = "$baseUrl/edit_expires_at";
+  static const String delete_coupon = "$baseUrl/deletecoupon";
 }

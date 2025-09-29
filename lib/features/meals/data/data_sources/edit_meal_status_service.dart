@@ -13,4 +13,9 @@ abstract class EditMealStatusService {
   Future<HttpResponse<dynamic>> makeMealUnavailable(
       @Path('mealType_id') int mealType_id,
       );
+
+  @POST("${ApiConstant.make_meal_available}/{mealType_id}")
+  Future<HttpResponse<dynamic>> makeMealAvailable(
+      @Path('mealType_id') int mealType_id,
+      );
 }

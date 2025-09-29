@@ -1,4 +1,5 @@
 import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/addCoupon/add_coupon_cubit.dart';
+import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/editCoupon/edit_coupon_cubit.dart';
 import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/get_coupons/get_coupons_cubit.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'features/auth/presentation/cubit/login/login_cubit.dart';
 import 'features/auth/presentation/cubit/logout/logout_cubit.dart';
 import 'features/auth/presentation/cubit/refresh/refresh_cubit.dart';
 import 'features/branches/presentation/cubits/get_branches/branch_cubit.dart';
+import 'features/coupons/presentation/cubits/delete_coupon/delete_coupon_cubit.dart';
 import 'features/notifications/data/services/notification_service.dart';
 
 Future<void> main() async {
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<MealTypesCubit>(create: (_) => di.sl<MealTypesCubit>()),
         BlocProvider<GetCouponsCubit>(create: (_) => di.sl<GetCouponsCubit>()),
         BlocProvider<AddCouponCubit>(create: (_) => di.sl<AddCouponCubit>()),
+        BlocProvider<EditCouponCubit>(create: (_) => di.sl<EditCouponCubit>()),
+        BlocProvider<DeleteCouponCubit>(create: (_) => di.sl<DeleteCouponCubit>()),
       ],
       child: Builder(
         builder: (context) {

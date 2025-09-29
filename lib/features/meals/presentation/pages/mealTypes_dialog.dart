@@ -23,7 +23,7 @@ class MealTypesDialog extends StatelessWidget {
       backgroundColor: AppColors.smooky,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: const BorderSide(color: AppColors.white, width: 1.5),
+        side: const BorderSide(color: AppColors.amber, width: 1.5),
       ),
       title: Column(
         children: [
@@ -103,61 +103,139 @@ class MealTypesDialog extends StatelessWidget {
                             size: 20,
                           ),
                           onPressed: () {
+                            final isAvailable = type.available == 1;
+
                             showDialog(
                               context: context,
-                              builder:
-                                  (_) => Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: AlertDialog(
-                                      backgroundColor: AppColors.smooky,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        side: const BorderSide(color: AppColors.amber, width: 1.5),
-                                      ),
-                                      title: Text(
-                                        "تعديل حالة ${type.name}",
-                                        style: const TextStyle(
-                                          color: AppColors.white,
-                                        ),
-                                      ),
-                                      content: const Text(
-                                        "هل تريد تعديل حالة هذه الوجبة؟",
-                                        style: TextStyle(
-                                          color: AppColors.white,
-                                        ),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () async {
-                                            context
-                                                .read<MealTypesCubit>()
-                                                .makeUnavailable(type.id);
-                                            context.pop();
-                                            ScaffoldMessenger.of(context,).showSnackBar(
-                                              const SnackBar(
-                                                content: Text("تم تعديل حالة نوع الوجبة بنجاح",),
-                                              ),
-                                            );
-                                          },
-                                          child: const Text("تأكيد",
-                                            style: TextStyle(color: AppColors.white,),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () => context.pop(),
-                                          child: const Text(
-                                            "إلغاء",
-                                            style: TextStyle(
-                                              color: AppColors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                              builder: (_) => Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: AlertDialog(
+                                  backgroundColor: AppColors.smooky,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    side: const BorderSide(
+                                      color: AppColors.amber,
+                                      width: 1.5,
                                     ),
                                   ),
+                                  title: Text(
+                                    isAvailable
+                                        ? "تعطيل ${type.name}"
+                                        : "تفعيل ${type.name}",
+                                    style: const TextStyle(
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                  content: Text(
+                                    isAvailable
+                                        ? "هل تريد جعل هذا النوع غير متاح؟"
+                                        : "هل تريد جعل هذا النوع متاح؟",
+                                    style: const TextStyle(
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () async {
+                                        if (isAvailable) {
+                                          await context.read<MealTypesCubit>().makeUnavailable(type.id);
+                                          print("Success UnAvailable : ${type.name}${type.available}");
+                                        } else {
+                                          await context.read<MealTypesCubit>().makeAvailable(type.id);
+                                          print("Success Available : ${type.name}${type.available}");
+
+                                        }
+                                        context.pop();
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              isAvailable
+                                                  ? "تم تعطيل نوع الوجبة بنجاح"
+                                                  : "تم تفعيل نوع الوجبة بنجاح",
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        "تأكيد",
+                                        style: TextStyle(color: AppColors.white),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => context.pop(),
+                                      child: const Text(
+                                        "إلغاء",
+                                        style: TextStyle(color: AppColors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             );
                           },
                         ),
+                        // IconButton(
+                        //   icon: const Icon(
+                        //     Icons.edit,
+                        //     color: AppColors.white,
+                        //     size: 20,
+                        //   ),
+                        //   onPressed: () {
+                        //     showDialog(
+                        //       context: context,
+                        //       builder:
+                        //           (_) => Directionality(
+                        //             textDirection: TextDirection.rtl,
+                        //             child: AlertDialog(
+                        //               backgroundColor: AppColors.smooky,
+                        //               shape: RoundedRectangleBorder(
+                        //                 borderRadius: BorderRadius.circular(15),
+                        //                 side: const BorderSide(color: AppColors.amber, width: 1.5),
+                        //               ),
+                        //               title: Text(
+                        //                 "تعديل حالة ${type.name}",
+                        //                 style: const TextStyle(
+                        //                   color: AppColors.white,
+                        //                 ),
+                        //               ),
+                        //               content: const Text(
+                        //                 "هل تريد تعديل حالة هذه الوجبة؟",
+                        //                 style: TextStyle(
+                        //                   color: AppColors.white,
+                        //                 ),
+                        //               ),
+                        //               actions: [
+                        //                 TextButton(
+                        //                   onPressed: () async {
+                        //                     context
+                        //                         .read<MealTypesCubit>()
+                        //                         .makeUnavailable(type.id);
+                        //                     context.pop();
+                        //                     ScaffoldMessenger.of(context,).showSnackBar(
+                        //                       const SnackBar(
+                        //                         content: Text("تم تعديل حالة نوع الوجبة بنجاح",),
+                        //                       ),
+                        //                     );
+                        //                   },
+                        //                   child: const Text("تأكيد",
+                        //                     style: TextStyle(color: AppColors.white,),
+                        //                   ),
+                        //                 ),
+                        //                 TextButton(
+                        //                   onPressed: () => context.pop(),
+                        //                   child: const Text(
+                        //                     "إلغاء",
+                        //                     style: TextStyle(
+                        //                       color: AppColors.white,
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //     );
+                        //   },
+                        // ),
                         Expanded(
                           flex: 3,
                           child: Directionality(

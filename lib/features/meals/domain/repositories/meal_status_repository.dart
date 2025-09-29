@@ -4,4 +4,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class MealStatusRepository{
   Future<Either<Failure,MealStatusEntity>> makeMealUnavailable(int mealType_id);
+  Future<Either<Failure,MealStatusEntity>> makeMealAvailable(int mealType_id);
+
 }

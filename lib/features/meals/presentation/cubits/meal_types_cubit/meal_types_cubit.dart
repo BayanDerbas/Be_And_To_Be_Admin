@@ -1,4 +1,4 @@
-import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_unavailable_usecase.dart';
+import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_status_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -30,7 +30,7 @@ class MealTypesCubit extends Cubit<MealTypesState> {
   }
 
   Future<void> makeUnavailable(int mealType_id) async {
-    final result = await useCase_(mealType_id);
+    final result = await useCase_.makeMealUnavailable(mealType_id);
     result.fold(
       (failure) {
         print("Make Meal Unavailbale Cubit Error : ${failure.message}");
@@ -38,6 +38,23 @@ class MealTypesCubit extends Cubit<MealTypesState> {
       },
       (response) async{
         print("Make Meal Unavailbale Cubit Success : ${response.message}");
+        emit(MakeMealUnavailableSuccess(response.message));
+        if (_currentMealId != null) {
+          await getMealsTypes(_currentMealId!);
+        }
+      },
+    );
+  }
+
+  Future<void> makeAvailable(int mealType_id) async {
+    final result = await useCase_.makeMealAvailable(mealType_id);
+    result.fold(
+          (failure) {
+        print("Make Meal availbale Cubit Error : ${failure.message}");
+        emit(MakeMealUnavailableFailure(failure.message));
+      },
+          (response) async{
+        print("Make Meal availbale Cubit Success : ${response.message}");
         emit(MakeMealUnavailableSuccess(response.message));
         if (_currentMealId != null) {
           await getMealsTypes(_currentMealId!);

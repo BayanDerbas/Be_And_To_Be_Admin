@@ -2,8 +2,11 @@ import 'package:be_and_to_be_admin/features/coupons/data/data_sources/coupons_se
 import 'package:be_and_to_be_admin/features/coupons/data/repositories/coupons_repository_impl.dart';
 import 'package:be_and_to_be_admin/features/coupons/domain/repositories/coupons_repository.dart';
 import 'package:be_and_to_be_admin/features/coupons/domain/usecases/add_coupon_usecase.dart';
+import 'package:be_and_to_be_admin/features/coupons/domain/usecases/delete_coupon_usecase.dart';
 import 'package:be_and_to_be_admin/features/coupons/domain/usecases/get_coupons_usecase.dart';
 import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/addCoupon/add_coupon_cubit.dart';
+import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/delete_coupon/delete_coupon_cubit.dart';
+import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/editCoupon/edit_coupon_cubit.dart';
 import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/get_coupons/get_coupons_cubit.dart';
 import 'package:be_and_to_be_admin/features/meals/data/data_sources/edit_meal_status_service.dart';
 import 'package:be_and_to_be_admin/features/meals/data/repositories/meal_status_repository_impl.dart';
@@ -12,7 +15,7 @@ import 'package:be_and_to_be_admin/features/meals/domain/repositories/get_types_
 import 'package:be_and_to_be_admin/features/meals/domain/repositories/meal_status_repository.dart';
 import 'package:be_and_to_be_admin/features/meals/domain/usecases/get_meals_of_category_usecase.dart';
 import 'package:be_and_to_be_admin/features/meals/domain/usecases/get_types_of_meal_usecase.dart';
-import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_unavailable_usecase.dart';
+import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_status_usecase.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +45,7 @@ import '../../features/categories/data/repositories/categories_repository_impl.d
 import '../../features/categories/domain/repositories/categories_repository.dart';
 import '../../features/categories/domain/usecases/get_categories_usecase.dart';
 import '../../features/categories/presentation/cubits/categories_cubit.dart';
+import '../../features/coupons/domain/usecases/edit_coupon_usecase.dart';
 import '../../features/meals/data/data_sources/meal_service.dart';
 import '../../features/meals/data/data_sources/meal_types_service.dart';
 import '../../features/meals/data/repositories/meal_repository_impl.dart';
@@ -91,6 +95,8 @@ Future<void> init() async {
   sl.registerLazySingleton<MakeMealStatusUseCase>(() => MakeMealStatusUseCase(sl<MealStatusRepository>()));
   sl.registerLazySingleton<GetCouponsUseCase>(() => GetCouponsUseCase(sl<CouponsRepository>()));
   sl.registerLazySingleton<AddCouponUseCase>(() => AddCouponUseCase(sl<CouponsRepository>()));
+  sl.registerLazySingleton<EditCouponUseCase>(() => EditCouponUseCase(sl<CouponsRepository>()));
+  sl.registerLazySingleton<DeleteCouponUseCase>(() => DeleteCouponUseCase(sl<CouponsRepository>()));
 
   // Cubits
   sl.registerLazySingleton<LoginCubit>(() => LoginCubit(sl<LoginUseCase>()));
@@ -102,4 +108,6 @@ Future<void> init() async {
   sl.registerLazySingleton<MealTypesCubit>(() => MealTypesCubit(sl<GetTypesOfMealUseCase>(),sl<MakeMealStatusUseCase>()));
   sl.registerFactory(() => GetCouponsCubit(sl<GetCouponsUseCase>()));
   sl.registerFactory(() => AddCouponCubit(sl<AddCouponUseCase>()));
+  sl.registerFactory(() => EditCouponCubit(sl<EditCouponUseCase>()));
+  sl.registerFactory(() => DeleteCouponCubit(sl<DeleteCouponUseCase>()));
 }

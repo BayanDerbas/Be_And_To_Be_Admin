@@ -7,7 +7,10 @@ class MakeMealStatusUseCase {
   final MealStatusRepository repository;
   MakeMealStatusUseCase(this.repository);
 
-  Future<Either<Failure,MealStatusEntity>> call(int mealType_id) async{
+  Future<Either<Failure,MealStatusEntity>> makeMealUnavailable(int mealType_id) async{
     return repository.makeMealUnavailable(mealType_id);
+  }
+  Future<Either<Failure,MealStatusEntity>> makeMealAvailable(int mealType_id) async{
+    return repository.makeMealAvailable(mealType_id);
   }
 }

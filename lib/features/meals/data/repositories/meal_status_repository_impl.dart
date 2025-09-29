@@ -34,4 +34,26 @@ class MealStatusRepositoryImpl implements MealStatusRepository {
       return Left(Failure('An unexpected error occurred: $e'));
     }
   }
+
+  @override
+  Future<Either<Failure, MealStatusEntity>> makeMealAvailable(int mealType_id) async {
+    try {
+      final response = await service.makeMealAvailable(mealType_id);
+      final data = response.data;
+      late MealStatusEntity entity;
+
+      if (data is Map<String, dynamic>) {
+        entity = MealStatusResponse.fromJson(data);
+      } else if (data is List && data.isNotEmpty) {
+        entity = MealStatusEntity(message: data.toString());
+      } else {
+        entity = MealStatusEntity(message: "Unexpected response format");
+      }
+      return Right(entity);
+    } on DioException catch (e) {
+      return Left(Failure.fromDioError(e));
+    } catch (e) {
+      return Left(Failure('An unexpected error occurred: $e'));
+    }
+  }
 }

@@ -8,7 +8,7 @@ class CustomCouponsTile extends StatelessWidget {
   final String expires_at;
   final String status;
   final String branch_name;
-  final VoidCallback onEditPressed;
+  final void Function(String fieldType) onEditPressed;
   final VoidCallback onDeletePressed;
 
   const CustomCouponsTile({
@@ -23,7 +23,12 @@ class CustomCouponsTile extends StatelessWidget {
     required this.onDeletePressed,
   });
 
-  Widget _buildEditableField(String text, VoidCallback onPressed, String unit) {
+  Widget _buildEditableField(
+      BuildContext context,
+      String text,
+      String unit,
+      String fieldType,
+      ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,20 +49,23 @@ class CustomCouponsTile extends StatelessWidget {
             if (unit.isNotEmpty)
               Text(
                 ' $unit',
-                style: const TextStyle(color: AppColors.white, fontSize: 13),
+                style:
+                const TextStyle(color: AppColors.white, fontSize: 13),
               ),
           ],
         ),
         const SizedBox(height: 4),
         GestureDetector(
-          onTap: onPressed,
+          onTap: () => onEditPressed(fieldType),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding:
+            const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: AppColors.DarkOlive,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: const Icon(Icons.edit, color: AppColors.amber, size: 20),
+            child:
+            const Icon(Icons.edit, color: AppColors.amber, size: 20),
           ),
         ),
       ],
@@ -94,7 +102,11 @@ class CustomCouponsTile extends StatelessWidget {
               ),
               child: Text(
                 code,
-                style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                style: const TextStyle(
+                  color: AppColors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -102,17 +114,19 @@ class CustomCouponsTile extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             flex: 3,
-            child: _buildEditableField(value, onEditPressed, '%'),
+            child: _buildEditableField(context, value, '%', "value"),
           ),
           const SizedBox(width: 8),
           Expanded(
             flex: 3,
-            child: _buildEditableField(min_order, onEditPressed, 'ل.س'),
+            child: _buildEditableField(
+                context, min_order, 'ل.س', "min_order"),
           ),
           const SizedBox(width: 8),
           Expanded(
             flex: 3,
-            child: _buildEditableField(expires_at, onEditPressed, ''),
+            child:
+            _buildEditableField(context, expires_at, '', "expires_at"),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -121,14 +135,18 @@ class CustomCouponsTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  isActive ? Icons.check_circle_outline : Icons.cancel_outlined,
-                  color: isActive ? AppColors.green_ : Colors.red,
+                  isActive
+                      ? Icons.check_circle_outline
+                      : Icons.cancel_outlined,
+                  color:
+                  isActive ? AppColors.green_ : Colors.red,
                   size: 20,
                 ),
                 Text(
                   isActive ? 'مفعل' : 'غير مفعل',
                   style: TextStyle(
-                    color: isActive ? AppColors.green_ : Colors.red,
+                    color:
+                    isActive ? AppColors.green_ : Colors.red,
                     fontSize: 10,
                   ),
                 ),
@@ -140,7 +158,8 @@ class CustomCouponsTile extends StatelessWidget {
             flex: 3,
             child: Text(
               branch_name,
-              style: const TextStyle(color: AppColors.white, fontSize: 12),
+              style:
+              const TextStyle(color: AppColors.white, fontSize: 12),
               textAlign: TextAlign.center,
             ),
           ),
