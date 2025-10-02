@@ -62,6 +62,11 @@ class DashboardPage extends StatelessWidget {
                         title: "الكوبونات",
                         onTap: () => context.go('/coupons'),
                       ),
+                      CustomMenuItem(
+                        icon: Icons.shopping_cart_outlined,
+                        title: "الطلبات",
+                        onTap: () => context.go('/orders'),
+                      ),
                       const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(12.0),

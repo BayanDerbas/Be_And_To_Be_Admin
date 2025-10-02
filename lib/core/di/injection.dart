@@ -17,6 +17,9 @@ import 'package:be_and_to_be_admin/features/meals/domain/usecases/get_meals_of_c
 import 'package:be_and_to_be_admin/features/meals/domain/usecases/get_types_of_meal_usecase.dart';
 import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_status_usecase.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
+import 'package:be_and_to_be_admin/features/orders/data/repositories/orders_repository_impl.dart';
+import 'package:be_and_to_be_admin/features/orders/domain/repositories/orders_repository.dart';
+import 'package:be_and_to_be_admin/features/orders/domain/usecases/get_all_orders_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -51,6 +54,8 @@ import '../../features/meals/data/data_sources/meal_types_service.dart';
 import '../../features/meals/data/repositories/meal_repository_impl.dart';
 import '../../features/meals/domain/repositories/meal_repository.dart';
 import '../../features/meals/presentation/cubits/meals/meals_cubit.dart';
+import '../../features/orders/data/data_sources/orders_service.dart';
+import '../../features/orders/presentation/cubits/get_all_orders/orders_cubit.dart';
 import '../networks/dio_factory.dart';
 
 final sl = GetIt.instance;
@@ -72,6 +77,7 @@ Future<void> init() async {
   sl.registerLazySingleton<MealTypesService>(() => MealTypesService(sl<Dio>()));
   sl.registerLazySingleton<EditMealStatusService>(() => EditMealStatusService(sl<Dio>()));
   sl.registerLazySingleton<CouponsService>(() => CouponsService(sl<Dio>()));
+  sl.registerLazySingleton<OrdersService>(() => OrdersService(sl()));
 
   // Repositories
   sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(sl<LoginService>()));
@@ -83,6 +89,7 @@ Future<void> init() async {
   sl.registerLazySingleton<MealTypesRepository>(() => MealTypesRepositoryImpl(sl<MealTypesService>()));
   sl.registerLazySingleton<MealStatusRepository>(() => MealStatusRepositoryImpl(sl<EditMealStatusService>()));
   sl.registerLazySingleton<CouponsRepository>(() => CouponsRepositoryImpl(sl<CouponsService>()));
+  sl.registerLazySingleton<OrdersRepository>(() => OrdersRepositoryImpl(sl<OrdersService>()));
 
   // UseCases
   sl.registerLazySingleton<LoginUseCase>(() => LoginUseCase(sl<LoginRepository>()));
@@ -97,6 +104,7 @@ Future<void> init() async {
   sl.registerLazySingleton<AddCouponUseCase>(() => AddCouponUseCase(sl<CouponsRepository>()));
   sl.registerLazySingleton<EditCouponUseCase>(() => EditCouponUseCase(sl<CouponsRepository>()));
   sl.registerLazySingleton<DeleteCouponUseCase>(() => DeleteCouponUseCase(sl<CouponsRepository>()));
+  sl.registerLazySingleton<GetAllOrdersUseCase>(() => GetAllOrdersUseCase(sl<OrdersRepository>()));
 
   // Cubits
   sl.registerLazySingleton<LoginCubit>(() => LoginCubit(sl<LoginUseCase>()));
@@ -110,4 +118,5 @@ Future<void> init() async {
   sl.registerFactory(() => AddCouponCubit(sl<AddCouponUseCase>()));
   sl.registerFactory(() => EditCouponCubit(sl<EditCouponUseCase>()));
   sl.registerFactory(() => DeleteCouponCubit(sl<DeleteCouponUseCase>()));
+  sl.registerFactory(() => OrdersCubit(sl<GetAllOrdersUseCase>()));
 }

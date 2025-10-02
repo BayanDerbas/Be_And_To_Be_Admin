@@ -16,4 +16,6 @@ class ApiConstant {
   static const String edit_percentValue = "$baseUrl/edit_value";
   static const String edit_expires_date = "$baseUrl/edit_expires_at";
   static const String delete_coupon = "$baseUrl/deletecoupon";
+  static const String show_all_orders = "$baseUrl/show_all_orders";
+  static const String accept_order = "$baseUrl/accept_order";
 }

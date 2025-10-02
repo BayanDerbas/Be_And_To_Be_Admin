@@ -204,7 +204,7 @@ class CustomDropDown extends StatelessWidget {
         value: item,
         child: Text(
           item,
-          style: TextStyle(color: AppColors.white), // نص أبيض أو grey1
+          style: TextStyle(color: AppColors.white),
         ),
       ))
           .toList(),

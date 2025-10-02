@@ -2,6 +2,7 @@ import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/addCoupo
 import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/editCoupon/edit_coupon_cubit.dart';
 import 'package:be_and_to_be_admin/features/coupons/presentation/cubits/get_coupons/get_coupons_cubit.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
+import 'package:be_and_to_be_admin/features/orders/presentation/cubits/get_all_orders/orders_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AddCouponCubit>(create: (_) => di.sl<AddCouponCubit>()),
         BlocProvider<EditCouponCubit>(create: (_) => di.sl<EditCouponCubit>()),
         BlocProvider<DeleteCouponCubit>(create: (_) => di.sl<DeleteCouponCubit>()),
+        BlocProvider<OrdersCubit>(create: (_) => di.sl<OrdersCubit>()),
       ],
       child: Builder(
         builder: (context) {
