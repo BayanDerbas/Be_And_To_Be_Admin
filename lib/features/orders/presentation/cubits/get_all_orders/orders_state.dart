@@ -19,3 +19,10 @@ class OrdersError extends OrdersState {
   @override
   List<Object?> get props => [message];
 }
+
+class AcceptOrder extends OrdersState {
+  final String message;
+  AcceptOrder(this.message);
+  @override
+  List<Object?> get props => [message];
+}

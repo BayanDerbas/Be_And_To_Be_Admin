@@ -19,7 +19,7 @@ import 'package:be_and_to_be_admin/features/meals/domain/usecases/make_meal_stat
 import 'package:be_and_to_be_admin/features/meals/presentation/cubits/meal_types_cubit/meal_types_cubit.dart';
 import 'package:be_and_to_be_admin/features/orders/data/repositories/orders_repository_impl.dart';
 import 'package:be_and_to_be_admin/features/orders/domain/repositories/orders_repository.dart';
-import 'package:be_and_to_be_admin/features/orders/domain/usecases/get_all_orders_usecase.dart';
+import 'package:be_and_to_be_admin/features/orders/domain/usecases/orders_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -104,7 +104,7 @@ Future<void> init() async {
   sl.registerLazySingleton<AddCouponUseCase>(() => AddCouponUseCase(sl<CouponsRepository>()));
   sl.registerLazySingleton<EditCouponUseCase>(() => EditCouponUseCase(sl<CouponsRepository>()));
   sl.registerLazySingleton<DeleteCouponUseCase>(() => DeleteCouponUseCase(sl<CouponsRepository>()));
-  sl.registerLazySingleton<GetAllOrdersUseCase>(() => GetAllOrdersUseCase(sl<OrdersRepository>()));
+  sl.registerLazySingleton<OrdersUseCase>(() => OrdersUseCase(sl<OrdersRepository>()));
 
   // Cubits
   sl.registerLazySingleton<LoginCubit>(() => LoginCubit(sl<LoginUseCase>()));
@@ -118,5 +118,5 @@ Future<void> init() async {
   sl.registerFactory(() => AddCouponCubit(sl<AddCouponUseCase>()));
   sl.registerFactory(() => EditCouponCubit(sl<EditCouponUseCase>()));
   sl.registerFactory(() => DeleteCouponCubit(sl<DeleteCouponUseCase>()));
-  sl.registerFactory(() => OrdersCubit(sl<GetAllOrdersUseCase>()));
+  sl.registerFactory(() => OrdersCubit(sl<OrdersUseCase>()));
 }
