@@ -1,6 +1,7 @@
 import 'package:be_and_to_be_admin/features/branches/presentation/pages/branches_page.dart';
 import 'package:be_and_to_be_admin/features/coupons/presentation/pages/coupons_page.dart';
 import 'package:be_and_to_be_admin/features/meals/presentation/pages/meals_page.dart';
+import 'package:be_and_to_be_admin/features/orders/presentation/pages/archive_page.dart';
 import 'package:be_and_to_be_admin/features/orders/presentation/pages/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -50,6 +51,10 @@ class AppRouter {
           GoRoute(
             path: '/accepted_orders',
             builder: (context,state) => AcceptedOrdersPage(),
+          ),
+          GoRoute(
+            path: '/archived_orders',
+            builder: (context,state) => ArchiveOrdersPage(),
           )
         ],
       ),

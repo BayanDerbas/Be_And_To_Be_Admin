@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import '../../../../core/networks/api_constant.dart';
@@ -20,5 +21,8 @@ abstract class OrdersService {
 
   @GET(ApiConstant.show_last_accepted_orders)
   Future<HttpResponse<OrdersResponseModel>> get_accepted_orders();
+
+  @GET(ApiConstant.show_archive_orders)
+  Future<HttpResponse<OrdersResponseModel>> show_archive_orders();
 }
 

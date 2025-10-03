@@ -9,13 +9,13 @@ import '../../../branches/presentation/cubits/get_branches/branch_cubit.dart';
 import '../../domain/entities/get_all_orders/orders_entity.dart';
 import '../cubits/get_all_orders/orders_cubit.dart';
 
-class AcceptedOrdersPage extends StatefulWidget {
-  const AcceptedOrdersPage({super.key});
+class ArchiveOrdersPage extends StatefulWidget {
+  const ArchiveOrdersPage({super.key});
   @override
-  State<AcceptedOrdersPage> createState() => _AcceptedOrdersPageState();
+  State<ArchiveOrdersPage> createState() => _ArchiveOrdersPageState();
 }
 
-class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
+class _ArchiveOrdersPageState extends State<ArchiveOrdersPage> {
   String selected = 'delivery';
   final Map<String, String> labels = {
     'delivery': 'توصيل (Delivery)',
@@ -28,7 +28,7 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
   @override
   void initState() {
     super.initState();
-    context.read<OrdersCubit>().fetchAcceptedAllOrders();
+    context.read<OrdersCubit>().fetchArchivesAllOrders();
     context.read<BranchCubit>().fetchBranches();
   }
 
@@ -39,7 +39,7 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.smooky,
-        title: const Text('إدارة الطلبات', style: TextStyle(color: AppColors.white)),
+        title: const Text('الأرشيف', style: TextStyle(color: AppColors.white)),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: rc.isDesktop ? 32 : 12, vertical: 12),
@@ -126,7 +126,7 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
                 SizedBox(
                   height: 30,
                   child: ElevatedButton.icon(
-                    onPressed: () => context.read<OrdersCubit>().fetchAcceptedAllOrders(),
+                    onPressed: () => context.read<OrdersCubit>().fetchArchivesAllOrders(),
                     icon: const Icon(Icons.refresh, size: 18),
                     label: rc.isMobile
                         ? const SizedBox.shrink()
@@ -172,7 +172,7 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
                               children: orders
                                   .map((order) => CustomAcceptedOrdersTile(
                                 order: order,
-                                onRefresh: () => context.read<OrdersCubit>().fetchAcceptedAllOrders(),
+                                onRefresh: () => context.read<OrdersCubit>().fetchArchivesAllOrders(),
                               ))
                                   .toList(),
                             ),
@@ -191,7 +191,7 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
                               itemBuilder: (context, index) {
                                 return CustomAcceptedOrdersTile(
                                   order: orders[index],
-                                  onRefresh: () => context.read<OrdersCubit>().fetchAcceptedAllOrders(),
+                                  onRefresh: () => context.read<OrdersCubit>().fetchArchivesAllOrders(),
                                 );
                               },
                             ),

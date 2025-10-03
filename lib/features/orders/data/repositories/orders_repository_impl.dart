@@ -85,4 +85,31 @@ class OrdersRepositoryImpl implements OrdersRepository {
       return Left(Failure('Unknown error: $e'));
     }
   }
+
+  @override
+  Future<Either<Failure, Map<String, List<OrderEntity>>>> show_archive_orders() async{
+    try {
+      final response = await service.show_archive_orders();
+      final OrdersResponseEntity data = response.data!.toEntity();
+      final delivery = data.deliveryOrders ?? [];
+      final table = data.tableOrders ?? [];
+      final self = data.selfOrders ?? [];
+
+      print("//////Archived Orders Loaded///////");
+      print("Delivery: ${delivery.length}, Table: ${table.length}, Self: ${self.length}");
+
+      return Right({
+        'delivery': delivery,
+        'table': table,
+        'self': self,
+      });
+
+    } on DioException catch (e) {
+      print(Failure.fromDioError(e));
+      return Left(Failure.fromDioError(e));
+    } catch (e) {
+      print(Failure(e.toString()));
+      return Left(Failure('Unknown error: $e'));
+    }
+  }
 }

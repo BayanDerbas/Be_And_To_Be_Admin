@@ -40,4 +40,11 @@ class OrdersCubit extends Cubit<OrdersState> {
           (orders) => emit(OrdersLoaded(orders)),
     );
   }
+  Future<void> fetchArchivesAllOrders() async {
+    emit(OrdersLoading());
+    final result = await useCase.show_archive_orders();
+    result.fold(
+          (failure) => emit(OrdersError(failure.message)),
+          (orders) => emit(OrdersLoaded(orders)),    );
+  }
 }

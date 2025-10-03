@@ -10,4 +10,5 @@ abstract class OrdersRepository {
     required String type,
 });
   Future<Either<Failure, Map<String, List<OrderEntity>>>> show_last_accepted_orders();
+  Future<Either<Failure,Map<String,List<OrderEntity>>>> show_archive_orders();
 }

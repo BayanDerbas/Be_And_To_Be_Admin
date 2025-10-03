@@ -20,4 +20,7 @@ class OrdersUseCase {
   Future<Either<Failure,Map<String,List<OrderEntity>>>> show_last_accepted_orders(){
     return repository.show_last_accepted_orders();
   }
+  Future<Either<Failure,Map<String,List<OrderEntity>>>> show_archive_orders(){
+    return repository.show_archive_orders();
+  }
 }
