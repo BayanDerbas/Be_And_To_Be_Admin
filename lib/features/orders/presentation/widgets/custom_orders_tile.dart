@@ -419,6 +419,13 @@ class CustomOrdersTile extends StatelessWidget {
                           const SizedBox(width: 12),
                           OutlinedButton(
                             onPressed: () => context.pop(),
+                            // onPressed: () {
+                            //   if (context.canPop()) {
+                            //     context.pop();
+                            //   } else {
+                            //     context.go('/orders');
+                            //   }
+                            // },
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: AppColors.white),
                               padding: const EdgeInsets.symmetric(

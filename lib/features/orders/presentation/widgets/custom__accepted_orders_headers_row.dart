@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../config/ResponsiveUI/responsiveConfig.dart';
 
-class CustomOrdersHeaderRow extends StatelessWidget {
-  const CustomOrdersHeaderRow({super.key});
+class CustomAcceptedOrdersHeaderRow extends StatelessWidget {
+  const CustomAcceptedOrdersHeaderRow({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -27,6 +27,7 @@ class OrderEntity extends Equatable {
   final UserEntity? user;
   final CouponEntity? coupon;
   final List<OrderItemEntity>? items;
+  final int? branch_id;
 
   const OrderEntity({
     this.id,
@@ -40,6 +41,7 @@ class OrderEntity extends Equatable {
     this.user,
     this.coupon,
     this.items,
+    this.branch_id
   });
 
   @override

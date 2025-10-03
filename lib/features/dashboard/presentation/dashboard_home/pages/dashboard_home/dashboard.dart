@@ -67,6 +67,11 @@ class DashboardPage extends StatelessWidget {
                         title: "الطلبات",
                         onTap: () => context.go('/orders'),
                       ),
+                      CustomMenuItem(
+                        icon: Icons.folder_copy,
+                        title: "الطلبات المقبولة",
+                        onTap: () => context.go('/accepted_orders'),
+                      ),
                       const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(12.0),

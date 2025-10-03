@@ -17,5 +17,8 @@ abstract class OrdersService {
     @Query('order_id') required int order_id,
     @Query('type') required String type,
 });
+
+  @GET(ApiConstant.show_last_accepted_orders)
+  Future<HttpResponse<OrdersResponseModel>> get_accepted_orders();
 }
 

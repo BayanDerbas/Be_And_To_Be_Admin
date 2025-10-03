@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+
 class ApiConstant {
   static const String baseUrl = "http://127.0.0.1:8000/api";
   static const String imageBase = "http://127.0.0.1:8000/";
@@ -18,4 +20,5 @@ class ApiConstant {
   static const String delete_coupon = "$baseUrl/deletecoupon";
   static const String show_all_orders = "$baseUrl/show_all_orders";
   static const String accept_order = "$baseUrl/accept_order";
+  static const String show_last_accepted_orders = "$baseUrl/show_last_accepted_orders";
 }

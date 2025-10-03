@@ -54,6 +54,7 @@ class OrderModel {
 
   @JsonKey(name: "selforderitem")
   final List<OrderItemModel>? selfItems;
+  final int? branch_id;
 
   const OrderModel({
     this.id,
@@ -69,6 +70,7 @@ class OrderModel {
     this.deliveryItems,
     this.tableItems,
     this.selfItems,
+    this.branch_id
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>

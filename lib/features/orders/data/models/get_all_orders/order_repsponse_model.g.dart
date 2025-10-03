@@ -59,6 +59,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       (json['selforderitem'] as List<dynamic>?)
           ?.map((e) => OrderItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+  branch_id: (json['branch_id'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$OrderModelToJson(
@@ -77,6 +78,7 @@ Map<String, dynamic> _$OrderModelToJson(
   'deliveryorderitem': instance.deliveryItems?.map((e) => e.toJson()).toList(),
   'tableorderitem': instance.tableItems?.map((e) => e.toJson()).toList(),
   'selforderitem': instance.selfItems?.map((e) => e.toJson()).toList(),
+  'branch_id': instance.branch_id,
 };
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(

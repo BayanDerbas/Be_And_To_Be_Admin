@@ -17,4 +17,7 @@ class OrdersUseCase {
 }) async {
     return repository.accept_order(order_id: order_id, type: type);
 }
+  Future<Either<Failure,Map<String,List<OrderEntity>>>> show_last_accepted_orders(){
+    return repository.show_last_accepted_orders();
+  }
 }

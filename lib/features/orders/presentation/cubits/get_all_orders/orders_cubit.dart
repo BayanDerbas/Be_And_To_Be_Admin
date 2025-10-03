@@ -32,4 +32,12 @@ class OrdersCubit extends Cubit<OrdersState> {
             },
     );
   }
+  Future<void> fetchAcceptedAllOrders() async {
+    emit(OrdersLoading());
+    final result = await useCase.show_last_accepted_orders();
+    result.fold(
+          (failure) => emit(OrdersError(failure.message)),
+          (orders) => emit(OrdersLoaded(orders)),
+    );
+  }
 }

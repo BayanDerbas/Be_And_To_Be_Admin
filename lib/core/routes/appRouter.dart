@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/pages/login&signup.dart';
 import '../../features/categories/presentation/pages/categories_page.dart';
 import '../../features/dashboard/presentation/dashboard_home/pages/dashboard_home/dashboard.dart';
+import '../../features/orders/presentation/pages/accepted_orders.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -46,6 +47,10 @@ class AppRouter {
             path: '/orders',
             builder: (context,state) => OrdersPage(),
           ),
+          GoRoute(
+            path: '/accepted_orders',
+            builder: (context,state) => AcceptedOrdersPage(),
+          )
         ],
       ),
     ],
