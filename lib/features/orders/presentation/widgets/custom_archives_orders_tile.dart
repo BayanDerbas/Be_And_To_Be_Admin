@@ -371,7 +371,6 @@ class CustomArchivedOrdersTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  // --- Action Buttons ---
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

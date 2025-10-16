@@ -44,6 +44,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
         body: Column(
           children: [
+            // === Branch dropdown ===
             BlocBuilder<BranchCubit, BranchState>(
               builder: (context, branchState) {
                 if (branchState is BranchLoading) {
@@ -63,7 +64,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         textDirection: TextDirection.rtl,
                         child: DropdownButton<BranchEntity>(
                           value: selectedBranch,
-                          hint: Text(
+                          hint: const Text(
                             "اختر الفرع",
                             style: TextStyle(color: AppColors.white),
                             textAlign: TextAlign.right,
@@ -102,59 +103,78 @@ class _CategoriesPageState extends State<CategoriesPage> {
               },
             ),
 
-            const CustomCategoriesHeaderRow(),
-
+            // === Scrollable header + list ===
             Expanded(
-              child: BlocBuilder<CategoriesCubit, CategoriesState>(
-                builder: (context, state) {
-                  if (state is CategoriesLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is CategoriesSuccess) {
-                    final categories = state.categories;
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final bool isMobile = constraints.maxWidth < 600;
 
-                    final branchState = context.watch<BranchCubit>().state;
-                    final branches = branchState is BranchSuccess
-                        ? branchState.branches.branches
-                        : <BranchEntity>[];
+                  // Wrap both header & list in a horizontal scroll view on mobile
+                  Widget content = Column(
+                    children: [
+                      const CustomCategoriesHeaderRow(),
+                      Expanded(
+                        child: BlocBuilder<CategoriesCubit, CategoriesState>(
+                          builder: (context, state) {
+                            if (state is CategoriesLoading) {
+                              return const Center(child: CircularProgressIndicator());
+                            } else if (state is CategoriesSuccess) {
+                              final categories = state.categories;
+                              final branchState = context.watch<BranchCubit>().state;
+                              final branches = branchState is BranchSuccess
+                                  ? branchState.branches.branches
+                                  : <BranchEntity>[];
 
-                    return ListView.builder(
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        final category = categories[index];
+                              return ListView.builder(
+                                itemCount: categories.length,
+                                itemBuilder: (context, index) {
+                                  final category = categories[index];
 
-                        final branch = branches.firstWhere(
-                              (b) => b.id == category.branch_id,
-                          orElse: () => BranchModel(
-                            id: -1,
-                            branch_name: "Unknown Branch",
-                            image: null,
-                            length: null,
-                            width: null,
-                            facebooktoken: null,
-                            instagramtoken: null,
-                            created_at: null,
-                            updated_at: null,
-                            phonenumbers: [],
-                          ),
-                        );
+                                  final branch = branches.firstWhere(
+                                        (b) => b.id == category.branch_id,
+                                    orElse: () => BranchModel(
+                                      id: -1,
+                                      branch_name: "Unknown Branch",
+                                      image: null,
+                                      length: null,
+                                      width: null,
+                                      facebooktoken: null,
+                                      instagramtoken: null,
+                                      created_at: null,
+                                      updated_at: null,
+                                      phonenumbers: [],
+                                    ),
+                                  );
 
-
-                        return CustomCategoriesTile(
-                          name: category.name,
-                          image: '${ApiConstant.imageBase}${category.image}',
-                          branch: branch.branch_name ?? "Unknown Branch",
-                        );
-                      },
-                    );
-                  } else if (state is CategoriesFailure) {
-                    return Center(child: Text("❌ ${state.message}"));
-                  }
-                  return const Center(
-                    child: Text("Main Categories🥪"),
+                                  return CustomCategoriesTile(
+                                    name: category.name,
+                                    image: '${ApiConstant.imageBase}${category.image}',
+                                    branch: branch.branch_name ?? "Unknown Branch",
+                                  );
+                                },
+                              );
+                            } else if (state is CategoriesFailure) {
+                              return Center(child: Text("❌ ${state.message}"));
+                            }
+                            return const Center(child: Text("Main Categories🥪"));
+                          },
+                        ),
+                      ),
+                    ],
                   );
+
+                  // Enable horizontal scroll on mobile
+                  if (isMobile) {
+                    content = SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SizedBox(width: 700, child: content), // give width for table columns
+                    );
+                  }
+
+                  return content;
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

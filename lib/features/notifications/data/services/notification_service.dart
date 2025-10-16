@@ -9,8 +9,9 @@ class NotificationService {
     // 1️⃣ Register Service Worker (required for background messages on web)
     if (html.window.navigator.serviceWorker != null) {
       try {
-        await html.window.navigator.serviceWorker!
-            .register('firebase-messaging-sw.js');
+        await html.window.navigator.serviceWorker!.register(
+          'firebase-messaging-sw.js',
+        );
         print('✅ Service Worker registered');
       } catch (e) {
         print('❌ Service Worker registration failed: $e');
@@ -30,7 +31,7 @@ class NotificationService {
     try {
       String? token = await _fcm.getToken(
         vapidKey:
-        "BC0G6648G2h5E0PZ5C9UOGk2E5HlQOtWCqsVbUMWEuibu7CYht4x1mGpeJ3V6KH0nMusfhOoz6ebE4BJ0biJPQ8",
+            "BC0G6648G2h5E0PZ5C9UOGk2E5HlQOtWCqsVbUMWEuibu7CYht4x1mGpeJ3V6KH0nMusfhOoz6ebE4BJ0biJPQ8",
       );
       if (token != null) {
         fcm_Token = token;
@@ -41,11 +42,21 @@ class NotificationService {
     }
 
     // 4️⃣ Listen to Foreground Messages
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   print("📩 رسالة جديدة (Foreground):");
+    //   print("Title: ${message.notification?.title}");
+    //   print("Body: ${message.notification?.body}");
+    //   print("Data: ${message.data}");
+    // });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print("📩 رسالة جديدة (Foreground):");
-      print("Title: ${message.notification?.title}");
-      print("Body: ${message.notification?.body}");
-      print("Data: ${message.data}");
+      print("📩 رسالة جديدة (Foreground): ${message.notification?.title}");
+
+      if (html.Notification.supported) {
+        html.Notification(
+          message.notification?.title ?? 'إشعار جديد',
+          body: message.notification?.body ?? '',
+        );
+      }
     });
 
     // 5️⃣ Listen to Messages when clicked from Notification
@@ -55,8 +66,6 @@ class NotificationService {
     });
   }
 }
-
-
 
 // import 'dart:html' as html;
 // import 'package:firebase_messaging/firebase_messaging.dart';

@@ -21,48 +21,67 @@ class BranchesPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: AppColors.smooky,
-              title: Align(
+              title: const Align(
                 alignment: Alignment.centerRight,
-                child: const Text(
+                child: Text(
                   'الفروع',
                   style: TextStyle(color: AppColors.white),
                 ),
               ),
             ),
-            body: Column(
-              children: [
-                const CustomBranchesHeaderRow(),
-                Expanded(
-                  child: BlocBuilder<BranchCubit, BranchState>(
-                    builder: (context, state) {
-                      if (state is BranchLoading) {
-                        return const Center(child: LoadinDount());
-                      } else if (state is BranchSuccess) {
-                        final branches = state.branches.branches;
-                        return ListView.builder(
-                          itemCount: branches.length,
-                          itemBuilder: (context, index) {
-                            final branch = branches[index];
-                            return CustomBranchesTile(
-                              name: branch.branch_name ?? '',
-                              phones: branch.phonenumbers.map((p) => p.phone ?? '').join('\n'),
-                              image: '${ApiConstant.imageBase}${branch.image}' ?? '',
+            body: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: 1000,
+                child: Column(
+                  children: [
+                    const CustomBranchesHeaderRow(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: BlocBuilder<BranchCubit, BranchState>(
+                        builder: (context, state) {
+                          if (state is BranchLoading) {
+                            return const Center(child: LoadinDount());
+                          } else if (state is BranchSuccess) {
+                            final branches = state.branches.branches;
+                            return ListView.builder(
+                              itemCount: branches.length,
+                              itemBuilder: (context, index) {
+                                final branch = branches[index];
+                                final hasValidLocation = branch.length != null &&
+                                    branch.width != null &&
+                                    branch.length != 0 &&
+                                    branch.width != 0;
+
+                                final locationUrl = hasValidLocation
+                                    ? 'https://maps.google.com/?q=${branch.length},${branch.width}'
+                                    : '';
+
+                                return CustomBranchesTile(
+                                  name: branch.branch_name ?? '',
+                                  phones: branch.phonenumbers.map((p) => p.phone ?? '').join('\n'),
+                                  image: '${ApiConstant.imageBase}${branch.image}' ?? '',
+                                  socialmediaInstagram: branch.instagramtoken ?? '',
+                                  socialmediaFacebook: branch.facebooktoken ?? '',
+                                  location: locationUrl,
+                                );
+                              },
                             );
-                          },
-                        );
-                      } else if (state is BranchesFailure) {
-                        return Center(
-                          child: Text(
-                            "Failed to load branches: ${state.message}",
-                            style: const TextStyle(color: Colors.red),
-                          ),
-                        );
-                      }
-                      return const Center(child: Text("No branches found"));
-                    },
-                  ),
+                          } else if (state is BranchesFailure) {
+                            return Center(
+                              child: Text(
+                                "Failed to load branches: ${state.message}",
+                                style: const TextStyle(color: Colors.red),
+                              ),
+                            );
+                          }
+                          return const Center(child: Text("No branches found"));
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         },
