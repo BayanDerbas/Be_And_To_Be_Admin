@@ -4,7 +4,6 @@ import '../../../../core/constants/app_colors.dart';
 class CustomMealsHeaderRow extends StatelessWidget {
   const CustomMealsHeaderRow({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
