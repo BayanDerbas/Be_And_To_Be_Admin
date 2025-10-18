@@ -20,25 +20,28 @@ class AddCouponButton extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           borderRadius: BorderRadius.circular(10),
-          child: const Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add,
-                  color: AppColors.white,
-                  size: 24,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'إضافة كوبون',
-                  style: TextStyle(
+          child: Center(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.add,
                     color: AppColors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    size: 24,
                   ),
-                ),
-              ],
+                  SizedBox(width: 8),
+                  Text(
+                    'إضافة كوبون',
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
