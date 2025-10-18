@@ -1,7 +1,5 @@
-// orders_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../config/ResponsiveUI/responsiveConfig.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/get_all_orders/orders_entity.dart';
@@ -42,56 +40,57 @@ class _OrdersPageState extends State<OrdersPage> {
         padding: EdgeInsets.symmetric(horizontal: rc.isDesktop ? 32 : 12, vertical: 12),
         child: Column(
           children: [
-            Row(
-              children: [
-                const Text(
-                  'نوع الطلب: ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    color: AppColors.white,
-                    
-                  ),
-                ),
-                const SizedBox(width: 8),
-                SizedBox(
-                  width: rc.isMobile ? 80 : 90,
-                  height: 30,
-                  child: DropdownButton<String>(
-                    value: selected,
-                    dropdownColor: AppColors.smooky,
-                    style: const TextStyle(color: AppColors.white),
-                    underline: const SizedBox(),
-                    items: const [
-                      DropdownMenuItem(value: 'delivery', child: Text('توصيل')),
-                      DropdownMenuItem(value: 'table', child: Text('طاولة')),
-                      DropdownMenuItem(value: 'self', child: Text('ذاتي')),
-                    ],
-                    onChanged: (v) {
-                      if (v != null) setState(() => selected = v);
-                    },
-                  ),
-                ),
-                const Spacer(),
-                SizedBox(
-                  height: 30,
-                  child: ElevatedButton.icon(
-                    onPressed: () => context.read<OrdersCubit>().fetchAllOrders(),
-                    icon: const Icon(Icons.refresh, size: 18),
-                    label: rc.isMobile
-                        ? const SizedBox.shrink() // hide label on mobile
-                        : const Text('تحديث'),
-                    style: ElevatedButton.styleFrom(
-                      padding: rc.isMobile ? const EdgeInsets.all(6) : null,
-                      backgroundColor: AppColors.amber,
-                      foregroundColor: AppColors.smooky2,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: rc.isMobile ? 100 : 120,
+                    height: 36,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.smooky2,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.amber, width: 1),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selected,
+                        dropdownColor: AppColors.smooky2,
+                        style: const TextStyle(color: AppColors.white),
+                        iconEnabledColor: AppColors.amber,
+                        items: const [
+                          DropdownMenuItem(value: 'delivery', child: Text('توصيل')),
+                          DropdownMenuItem(value: 'table', child: Text('طاولة')),
+                          DropdownMenuItem(value: 'self', child: Text('ذاتي')),
+                        ],
+                        onChanged: (v) {
+                          if (v != null) setState(() => selected = v);
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 12),
+                  SizedBox(
+                    height: 30,
+                    child: ElevatedButton.icon(
+                      onPressed: () => context.read<OrdersCubit>().fetchAllOrders(),
+                      icon: const Icon(Icons.refresh, size: 18),
+                      label: rc.isMobile
+                          ? const SizedBox.shrink()
+                          : const Text('تحديث'),
+                      style: ElevatedButton.styleFrom(
+                        padding: rc.isMobile ? const EdgeInsets.all(6) : null,
+                        backgroundColor: AppColors.amber,
+                        foregroundColor: AppColors.smooky2,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 12),
-
-            // --- Orders List ---
             Expanded(
               child: BlocBuilder<OrdersCubit, OrdersState>(
                 builder: (context, state) {
@@ -107,8 +106,6 @@ class _OrdersPageState extends State<OrdersPage> {
                         ),
                       );
                     }
-
-                    // --- Mobile: horizontal scroll, Desktop: column ---
                     if (rc.isMobile) {
                       return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,

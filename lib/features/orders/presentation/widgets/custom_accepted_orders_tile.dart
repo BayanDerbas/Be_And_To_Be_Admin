@@ -117,10 +117,20 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                 onPressed: () => _showDetailsDialog(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.amber,
+                  minimumSize: const Size(90, 36), // ensures space for text
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: const Text(
                   'تفاصيل',
-                  style: TextStyle(color: AppColors.smooky2, fontSize: 14),
+                  style: TextStyle(
+                    color: AppColors.smooky2,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis, // prevent clipping
                 ),
               ),
             ),
@@ -202,7 +212,6 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
             height: 36,
             width: 100,
             child:
-            ////here fix it design
             ElevatedButton(
               onPressed: () => _showDetailsDialog(context),
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.amber),
@@ -273,7 +282,7 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                           if (order.address != null) ...[
                             const SizedBox(height: 4),
                             Text(
-                              '${order.address}العنوان ',
+                              '${order.address} :العنوان',
                               textAlign: TextAlign.right,
                               style: const TextStyle(
                                 color: AppColors.white,
@@ -283,7 +292,7 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                           if (order.tableNumber != null) ...[
                             const SizedBox(height: 4),
                             Text(
-                              'طاولة: ${order.tableNumber}',
+                              '${order.tableNumber} :طاولة',
                               textAlign: TextAlign.right,
                               style: const TextStyle(
                                 color: AppColors.white,
@@ -295,10 +304,8 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-
-                  // --- Items ---
                   Text(
-                    ': عناصر الطلب',
+                    ' :عناصر الطلب',
                     textAlign: TextAlign.right,
                     style: const TextStyle(
                       color: AppColors.amber,
@@ -309,8 +316,6 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                   const SizedBox(height: 8),
                   _buildItemsTable(context),
                   const SizedBox(height: 12),
-
-                  // --- Coupon Info ---
                   if (order.coupon != null)
                     Card(
                       color: AppColors.smooky2,
@@ -350,11 +355,9 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(height: 12),
-
-                  // --- Note & Total ---
                   if (order.note != null) ...[
                     Text(
-                      'الملاحظة: ${order.note}',
+                      '${order.note} :الملاحظة',
                       textAlign: TextAlign.right,
                       style: const TextStyle(color: AppColors.white),
                     ),
@@ -439,7 +442,7 @@ class CustomAcceptedOrdersTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'النوع: ${it.typeName ?? '-'}',
+                  '${it.typeName ?? '-'}:النوع',
                   style: const TextStyle(color: AppColors.white),
                 ),
                 Text(

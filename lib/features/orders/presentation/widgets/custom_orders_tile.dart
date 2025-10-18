@@ -275,7 +275,7 @@ class CustomOrdersTile extends StatelessWidget {
                               if (order.address != null) ...[
                                 const SizedBox(height: 4),
                                 Text(
-                                  '${order.address}العنوان ',
+                                  '${order.address}:العنوان',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     color: AppColors.white,
@@ -285,7 +285,7 @@ class CustomOrdersTile extends StatelessWidget {
                               if (order.tableNumber != null) ...[
                                 const SizedBox(height: 4),
                                 Text(
-                                  'طاولة: ${order.tableNumber}',
+                                  '${order.tableNumber}:طاولة',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     color: AppColors.white,
@@ -297,10 +297,8 @@ class CustomOrdersTile extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-
-                      // --- Items ---
                       Text(
-                        'عناصر الطلب:',
+                        ':عناصر الطلب',
                         textAlign: TextAlign.right,
                         style: const TextStyle(
                           color: AppColors.amber,
@@ -311,8 +309,6 @@ class CustomOrdersTile extends StatelessWidget {
                       const SizedBox(height: 8),
                       _buildItemsTable(context),
                       const SizedBox(height: 12),
-
-                      // --- Coupon Info ---
                       if (order.coupon != null)
                         Card(
                           color: AppColors.smooky2,
@@ -325,7 +321,7 @@ class CustomOrdersTile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  'كوبون: ${order.coupon?.code ?? '-'}',
+                                  'كوبون:${order.coupon?.code ?? '-'}',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     color: AppColors.white,
@@ -333,7 +329,7 @@ class CustomOrdersTile extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'قيمة الكوبون: ${order.coupon?.value ?? '-'}',
+                                  'قيمة الكوبون:${order.coupon?.value ?? '-'}',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     color: AppColors.white,
@@ -341,7 +337,7 @@ class CustomOrdersTile extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'الحد الأدنى للطلب: ${order.coupon?.minOrder ?? '-'}',
+                                  'الحد الأدنى للطلب:${order.coupon?.minOrder ?? '-'}',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     color: AppColors.white,
@@ -352,18 +348,16 @@ class CustomOrdersTile extends StatelessWidget {
                           ),
                         ),
                       const SizedBox(height: 12),
-
-                      // --- Note & Total ---
                       if (order.note != null) ...[
                         Text(
-                          'الملاحظة: ${order.note}',
+                          '${order.note}:الملاحظة',
                           textAlign: TextAlign.right,
                           style: const TextStyle(color: AppColors.white),
                         ),
                         const SizedBox(height: 8),
                       ],
                       Text(
-                        'الإجمالي: ${_formatPrice(order.totalPrice)}',
+                        '${_formatPrice(order.totalPrice)}:الإجمالي',
                         textAlign: TextAlign.right,
                         style: const TextStyle(
                           color: AppColors.amber,
@@ -372,8 +366,6 @@ class CustomOrdersTile extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-
-                      // --- Action Buttons ---
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -381,7 +373,6 @@ class CustomOrdersTile extends StatelessWidget {
                             onPressed: () {
                               final id = order.id;
                               if (id != null) {
-                                // تحديد نوع الطلب (delivery, table, self)
                                 String type = '';
                                 if (order.address != null) {
                                   type = 'delivery_order';
@@ -482,11 +473,11 @@ class CustomOrdersTile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'النوع: ${it.typeName ?? '-'}',
+                      'النوع : ${it.typeName ?? '-'}',
                       style: const TextStyle(color: AppColors.white),
                     ),
                     Text(
-                      'الكمية: ${it.amount ?? 0}  •  السعر: ${it.price ?? 0} ل.س',
+                      'الكمية : ${it.amount ?? 0}  •  السعر : ${it.price ?? 0} ل.س',
                       style: const TextStyle(color: AppColors.white),
                     ),
                   ],

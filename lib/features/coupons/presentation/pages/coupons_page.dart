@@ -108,13 +108,11 @@ class CouponsPage extends StatelessWidget {
                     duration: const Duration(seconds: 2),
                   ),
                 );
-
-                // Use root context safely
                 final rootContext = Navigator.of(context, rootNavigator: true).context;
 
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pop(); // Close the dialog
-                  rootContext.read<GetCouponsCubit>().getCoupons(); // Refresh list
+                  Navigator.of(context).pop();
+                  rootContext.read<GetCouponsCubit>().getCoupons();
                 });
               } else if (state is DeleteCouponFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -126,7 +124,7 @@ class CouponsPage extends StatelessWidget {
                 );
 
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pop(); // Close dialog
+                  Navigator.of(context).pop();
                 });
               }
             },

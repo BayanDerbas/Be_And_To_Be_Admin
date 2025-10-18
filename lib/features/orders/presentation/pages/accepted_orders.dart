@@ -45,104 +45,78 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
         padding: EdgeInsets.symmetric(horizontal: rc.isDesktop ? 32 : 12, vertical: 12),
         child: Column(
           children: [
-            Row(
-              children: [
-                const Text(
-                  'نوع الطلب: ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                SizedBox(
-                  width: rc.isMobile ? 80 : 90,
-                  height: 30,
-                  child: DropdownButton<String>(
-                    value: selected,
-                    dropdownColor: AppColors.smooky,
-                    style: const TextStyle(color: AppColors.white),
-                    underline: const SizedBox(),
-                    items: const [
-                      DropdownMenuItem(value: 'delivery', child: Text('توصيل')),
-                      DropdownMenuItem(value: 'table', child: Text('طاولة')),
-                      DropdownMenuItem(value: 'self', child: Text('ذاتي')),
-                    ],
-                    onChanged: (v) {
-                      if (v != null) setState(() => selected = v);
-                    },
-                  ),
-                ),
-                const Spacer(),
-                // BlocBuilder<BranchCubit, BranchState>(
-                //   builder: (context, state) {
-                //     if (state is BranchLoading) {
-                //       return const SizedBox(
-                //         height: 24,
-                //         width: 24,
-                //         child: CircularProgressIndicator(strokeWidth: 2),
-                //       );
-                //     } else if (state is BranchSuccess) {
-                //       final branches = state.branches.branches;
-                //
-                //       return SizedBox(
-                //         width: rc.isMobile ? 120 : 200,
-                //         height: 30,
-                //         child: DropdownButton<BranchEntity>(
-                //           value: selectedBranch,
-                //           hint: const Text(
-                //             "اختر الفرع",
-                //             style: TextStyle(color: AppColors.white),
-                //           ),
-                //           isExpanded: true,
-                //           dropdownColor: AppColors.smooky2,
-                //           underline: const SizedBox(),
-                //           style: const TextStyle(color: AppColors.white),
-                //           items: branches.map((branch) {
-                //             return DropdownMenuItem(
-                //               value: branch,
-                //               child: Align(
-                //                 alignment: Alignment.centerRight,
-                //                 child: Text(
-                //                   branch.branch_name ?? "Unnamed",
-                //                   style: const TextStyle(color: AppColors.white),
-                //                 ),
-                //               ),
-                //             );
-                //           }).toList(),
-                //           onChanged: (branch) {
-                //             setState(() {
-                //               selectedBranch = branch;
-                //             });
-                //           },
-                //         ),
-                //       );
-                //     }
-                //     return const SizedBox.shrink();
-                //   },
-                // ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final isMobile = ResponsiveConfig.of(context).isMobile;
 
-                const SizedBox(width: 12),
-                SizedBox(
-                  height: 30,
-                  child: ElevatedButton.icon(
-                    onPressed: () => context.read<OrdersCubit>().fetchAcceptedAllOrders(),
-                    icon: const Icon(Icons.refresh, size: 18),
-                    label: rc.isMobile
-                        ? const SizedBox.shrink()
-                        : const Text('تحديث'),
-                    style: ElevatedButton.styleFrom(
-                      padding: rc.isMobile ? const EdgeInsets.all(6) : null,
-                      backgroundColor: AppColors.amber,
-                      foregroundColor: AppColors.smooky2,
+                return Flex(
+                  direction: isMobile ? Axis.vertical : Axis.horizontal,
+                  crossAxisAlignment:
+                  isMobile ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Label
+                    const Text(
+                      ': نوع الطلب',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.white,
+                      ),
                     ),
-                  ),
-                ),
-              ],
+
+                    SizedBox(width: isMobile ? 0 : 8, height: isMobile ? 8 : 0),
+                    Container(
+                      width: isMobile ? double.infinity : 100,
+                      height: 36,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: AppColors.smooky2,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: AppColors.amber, width: 1),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selected,
+                          dropdownColor: AppColors.smooky2,
+                          style: const TextStyle(color: AppColors.white),
+                          iconEnabledColor: AppColors.amber,
+                          isExpanded: true,
+                          items: const [
+                            DropdownMenuItem(value: 'delivery', child: Text('توصيل')),
+                            DropdownMenuItem(value: 'table', child: Text('طاولة')),
+                            DropdownMenuItem(value: 'self', child: Text('ذاتي')),
+                          ],
+                          onChanged: (v) {
+                            if (v != null) setState(() => selected = v);
+                          },
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(width: isMobile ? 0 : 12, height: isMobile ? 8 : 0),
+                    SizedBox(
+                      height: 36,
+                      width: isMobile ? double.infinity : null,
+                      child: ElevatedButton.icon(
+                        onPressed: () =>
+                            context.read<OrdersCubit>().fetchAcceptedAllOrders(),
+                        icon: const Icon(Icons.refresh, size: 18),
+                        label: isMobile ? const Text('تحديث',style: TextStyle(fontSize: 12),) : const Text('تحديث',style: TextStyle(fontSize: 12),),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.amber,
+                          foregroundColor: AppColors.smooky2,
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 12),
-
-            // --- Orders List ---
             Expanded(
               child: BlocBuilder<OrdersCubit, OrdersState>(
                 builder: (context, state) {
@@ -158,8 +132,6 @@ class _AcceptedOrdersPageState extends State<AcceptedOrdersPage> {
                         ),
                       );
                     }
-
-                    // --- Mobile: horizontal scroll, Desktop: column ---
                     if (rc.isMobile) {
                       return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
