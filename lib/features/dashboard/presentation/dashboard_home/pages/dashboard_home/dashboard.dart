@@ -38,14 +38,28 @@ class DashboardPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const SizedBox(height: 40),
-                          Center(
-                            child: Text(
-                              "لوحة التحكم",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "لوحة التحكم",
+                                  style: TextStyle(
+                                    color: AppColors.amber,
+                                    fontSize: isMobile ? 15 : 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(width: 3),
+                                IconButton(
+                                  onPressed: () => context.go('/dash'),
+                                  icon: Icon(
+                                    Icons.water_damage_sharp,
+                                    size: isMobile ? 25 : 40,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 30),
